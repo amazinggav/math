@@ -102,9 +102,11 @@ function generateProblem(tier) {
     const a = rand(6, 12), b = rand(6, 12);
     return { q: `${a} × ${b} = ?`, a: a * b, hint: 'Use multiplication facts.' };
   }
-  const denom = rand(2, 10);
+  const cleanDenominators = [2, 4, 5, 8, 10];
+  const denom = cleanDenominators[rand(0, cleanDenominators.length - 1)];
   const x = rand(1, denom - 1), y = rand(1, denom - 1);
-  return { q: `${x}/${denom} + ${y}/${denom} = ? (decimal)`, a: (x + y) / denom, hint: 'Same denominator: add the tops first.' };
+  const answer = Number(((x + y) / denom).toFixed(2));
+  return { q: `${x}/${denom} + ${y}/${denom} = ? (decimal)`, a: answer, hint: 'Same denominator: add the tops first. Round to 2 decimals if needed.' };
 }
 
 function renderStore() {
