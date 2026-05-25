@@ -382,16 +382,38 @@ function drawPlayer(p) {
   if (performance.now() < state.invulnUntil) ctx.globalAlpha = 0.65 + Math.sin(state.t * 0.8) * 0.25;
 
   const height = p.sliding ? 28 : p.h;
-  const body = ctx.createLinearGradient(0, 0, 0, height);
-  body.addColorStop(0, '#5568ff');
-  body.addColorStop(1, '#2c3fc9');
-  ctx.fillStyle = body;
-  ctx.fillRect(0, 0, p.w, height);
+  const armor = ctx.createLinearGradient(0, 0, 0, height);
+  armor.addColorStop(0, '#e3e7ef');
+  armor.addColorStop(1, '#7a879d');
+  ctx.fillStyle = armor;
+  ctx.fillRect(8, 14, p.w - 12, height - 14);
 
-  ctx.fillStyle = '#f7d6b5';
-  ctx.fillRect(8, 6, 18, 12);
-  ctx.fillStyle = '#fff';
-  ctx.fillRect(20, height - 10, 10, 7);
+  ctx.fillStyle = '#4f5f7d';
+  ctx.fillRect(5, 16, 5, height - 8); // shield
+
+  // helmet
+  ctx.fillStyle = '#cfd7e6';
+  ctx.fillRect(9, 0, 18, 15);
+  ctx.fillStyle = '#8a96ab';
+  ctx.fillRect(9, 10, 18, 5);
+  ctx.fillStyle = '#101826';
+  ctx.fillRect(12, 6, 12, 4); // visor
+
+  // plume
+  ctx.fillStyle = '#c3293a';
+  ctx.beginPath();
+  ctx.moveTo(18, 0);
+  ctx.lineTo(28, 2);
+  ctx.lineTo(22, 8);
+  ctx.closePath();
+  ctx.fill();
+
+  // belt and boots
+  ctx.fillStyle = '#6f4d2e';
+  ctx.fillRect(8, Math.max(16, height - 18), p.w - 12, 4);
+  ctx.fillStyle = '#2b2f37';
+  ctx.fillRect(10, height - 6, 7, 6);
+  ctx.fillRect(20, height - 6, 9, 6);
   ctx.restore();
 }
 
